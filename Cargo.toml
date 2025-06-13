@@ -18,6 +18,7 @@ bevy = { version = "0.16.0", default-features = false, features = [
 	"bevy_render",
 	"bevy_core_pipeline",
 	"bevy_asset",
+	"bevy_log",
 ] }
 lyon_tessellation = "1"
 lyon_algorithms = "1"

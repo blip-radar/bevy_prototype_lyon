@@ -29,11 +29,7 @@ impl Plugin for ShapePlugin {
         let stroke_tess = tess::StrokeTessellator::new();
         app.insert_resource(FillTessellator(fill_tess))
             .insert_resource(StrokeTessellator(stroke_tess))
-            .configure_sets(
-                PostUpdate,
-                BuildShapes.after(bevy::transform::TransformSystem::TransformPropagate),
-            )
-            .add_systems(PostUpdate, mesh_shapes_system.in_set(BuildShapes));
+            .add_systems(Update, mesh_shapes_system);
 
         app.world_mut()
             .resource_mut::<Assets<ColorMaterial>>()
@@ -46,11 +42,6 @@ impl Plugin for ShapePlugin {
             );
     }
 }
-
-/// [`SystemSet`] for the system that builds the meshes for newly-added
-/// or changed shapes. Resides in [`PostUpdate`] schedule.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, SystemSet)]
-pub struct BuildShapes;
 
 /// Queries all the [`Shape`]s and their related components
 /// to mesh them when they are added
